@@ -1,0 +1,24 @@
+<h3>View Our Member only posts !!</h3>
+
+Our club has <%= Post.public_count %> posts and counting!
+
+
+<div>
+	<% if user_signed_in? %>
+	<%= link_to "New Post", new_post_path %>
+	<% end %>
+</div>
+
+<ul>
+	<% @posts.each do |post| %>
+		<li>
+			<%= link_to post.title, post %> |
+			<% if user_signed_in? %>
+			<% if current_user.id == post.user_id %>
+			<%= link_to "Edit Post", edit_post_path(post) %>
+			<% end %>
+			Written by <%= post.user.username %>
+			<% end %>
+		</li>
+	<% end %>
+</ul>

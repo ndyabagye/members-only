@@ -1,0 +1,19 @@
+<h1><%= @post.title %></h1>
+<small>Written by <%= @post.user.username %></small>
+<p><%= @post.body %></p>
+
+<div>
+	<% if user_signed_in? %>
+	<% if current_user.id == @post.user_id %>
+		<%= link_to "Edit", edit_post_path(@post) %> |
+
+		<%= link_to "Delete", post_path(@post),
+              data: {
+                turbo_method: :delete,
+                turbo_confirm: :"Are you sure?",
+              } %>
+		<% end %>
+			  <% else %>
+			  <p><%= link_to "Login to edit or delete", new_user_session_path %></p>
+			  <% end %>
+</div>
